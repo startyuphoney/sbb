@@ -1,0 +1,33 @@
+package com.mysite.sbb.question;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.mysite.sbb.DataNotFoundException;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Service
+public class QuestionService {
+	
+	private final QuestionRepository questionRepository;
+	
+	// 모든 질문 목록 조회
+	public List<Question> getList() {
+		return this.questionRepository.findAll();
+	}
+	
+	// 질문상세보기 위한 단일질문 반환
+	public Question getQuestion(Integer id) {
+		Optional<Question> question = this.questionRepository.findById(id);
+				if (question.isPresent()) {
+					return question.get();
+				} else {
+					throw new DataNotFoundException("question not found");
+				}
+	}
+	
+}
