@@ -1,19 +1,12 @@
 package com.mysite.sbb;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.List;
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.mysite.sbb.Answer.Answer;
-import com.mysite.sbb.Answer.AnswerRepository;
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionRepository;
+import com.mysite.sbb.question.QuestionService;
 
 import jakarta.transaction.Transactional;
 
@@ -24,18 +17,14 @@ class SbbApplicationTests {
 	private QuestionRepository questionRepository; 
 	
 	@Autowired
-	private AnswerRepository answerRepository;
+	private QuestionService questionService;
 	
-	@Transactional
 	@Test
 	void testJpa() {
-		Optional<Question> oq = this.questionRepository.findById(2);
-		assertTrue(oq.isPresent());
-		Question q = oq.get();
-		
-		List<Answer> answerList = q.getAnswerList();
-		
-		assertEquals(1, answerList.size());
-		assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
+		for(int i = 0; i < 300; i++) {
+			String subject = "테스트입니다! [" + i + "]";
+			String content = "내용입니다";
+			this.questionService.create(subject, content);
+		}
 	}
 }
