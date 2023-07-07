@@ -17,6 +17,7 @@ public class AnswerService {
 	
 	private final AnswerRepository answerRepository;
 	
+	// 답변 생성 
 	public void create(Question question, String content, SiteUser author) {
 		Answer answer = new Answer();
 		answer.setContent(content);
@@ -26,6 +27,7 @@ public class AnswerService {
 		this.answerRepository.save(answer);
 	}
 	
+	// 답변 조회
 	public Answer getAnswer(Integer id) {
 		Optional<Answer> answer = this.answerRepository.findById(id);
 		if (answer.isPresent()) {
@@ -35,10 +37,19 @@ public class AnswerService {
 		}
 	}
 	
+	// 답변 수정
 	public void modify(Answer answer, String content) {
 		answer.setContent(content);
 		answer.setModifyDate(LocalDateTime.now());
 		this.answerRepository.save(answer);
 	}
-	
+
+	// 답변 삭제
+	public void delete(Answer answer) {
+		this.answerRepository.delete(answer);
+	}
 }
+
+
+
+
