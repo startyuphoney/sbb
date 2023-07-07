@@ -24,7 +24,7 @@ class SbbApplicationTests {
 		for(int i = 0; i < 300; i++) {
 			String subject = "테스트입니다! [" + i + "]";
 			String content = "내용입니다";
-			this.questionService.create(subject, content);
+//			this.questionService.create(subject, content);
 		}
 	}
 }
